@@ -1,62 +1,92 @@
-import { View, Text, StyleSheet, TextInput, Pressable} from 'react-native';
+
+import { useState} from 'react';
 import colors from '@/constants/colors';
+import { View, Text, StyleSheet, TextInput, Pressable, SafeAreaView, ScrollView} from 'react-native';
 import {router} from 'expo-router'
 import { Ionicons} from '@expo/vector-icons';
 
+
+
 export default function Signup() {
   
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  function handleSignUp(){
+    console.log({
+      name,
+      email,
+      senha
+    })
+  }
+
   return (
-    
-    <View style={styles.container}>
-      <View style={styles.header}>
-        
-        <Pressable 
-        onPress={() => router.back()}
-        style={styles.voltar}>
-          <Ionicons name= 'arrow-back' size={24} color={colors.white} />
-        </Pressable>
-        
-        <Text style={styles.logoText}>
-          Ta<Text style ={{color: colors.azul_Taxi}}>xi</Text>
-        </Text>
-        
-        <Text style={styles.slogan}>
-          Criar uma conta
-        </Text>   
-      </View>
-
-
-      <View style={styles.form}>
-        <View>
-          <Text style= {styles.label}>Nome completo</Text>
-          <TextInput
-            placeholder='Nome completo...'
-            style={styles.input}/>
-        </View>
-       
-        <View>
-          <Text style= {styles.label}>Email</Text>
-          <TextInput
-            placeholder='Digite seu Email...'
-            style={styles.input}/>
+    <SafeAreaView style = {{ flex:1 }}>
+      <ScrollView style={{ flex:1, backgroundColor:colors.white }}>
+        <View style={styles.container}>
+        <View style={styles.header}>
+          
+          <Pressable 
+          onPress={() => router.back()}
+          style={styles.voltar}>
+            <Ionicons name= 'arrow-back' size={24} color={colors.white} />
+          </Pressable>
+          
+          <Text style={styles.logoText}>
+            Ta<Text style ={{color: colors.azul_Taxi}}>xi</Text>
+          </Text>
+          
+          <Text style={styles.slogan}>
+            Criar uma conta
+          </Text>   
         </View>
 
-        <View>
-          <Text style= {styles.label}>Senha</Text>
-          <TextInput
-            placeholder='Digite sua Senha...'
-            secureTextEntry
-            style={styles.input}/>
+
+        <View style={styles.form}>
+          <View>
+            <Text style= {styles.label}>Nome completo</Text>
+            <TextInput
+              placeholder='Nome completo...'
+              style={styles.input}
+              value={name}
+              onChangeText={setName}
+              />
+          </View>
+        
+          <View>
+            <Text style= {styles.label}>Email</Text>
+            <TextInput
+              placeholder='Digite seu Email...'
+              style={styles.input}
+              value={email}
+              onChangeText={setEmail}
+              />
+          </View>
+
+          <View>
+            <Text style= {styles.label}>Senha</Text>
+            <TextInput
+              placeholder='Digite sua Senha...'
+              secureTextEntry
+              style={styles.input}
+              value={senha}
+              onChangeText={setSenha}
+              
+              />
+          </View>
+
+          <Pressable style = {styles.button} onPress={handleSignUp}>
+            <Text style ={ styles.buttonText}>Cadastrar</Text>
+          </Pressable>
+
+        </View>   
+          
         </View>
 
-        <Pressable style = {styles.button}>
-          <Text style ={ styles.buttonText}>Cadastrar</Text>
-        </Pressable>
-
-
-      </View>   
-        
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

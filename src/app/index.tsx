@@ -93,9 +93,9 @@ export default function Login() {
         {/* Informações de Contato */}
         <View style={styles.contactInfo}>
           <Text style={styles.contactText}>© 2025 IlhaCoop. Todos os direitos reservados.</Text>
-          <Text style={styles.contactText}>Email: contato@ilhacoop.com.br</Text>
-          <Text style={styles.contactText}>Telefone: (12) 1234-5678</Text>
-          <Text style={styles.contactText}>Endereço: Av. Principal, 123 - Ilhabela, SP</Text>
+          <Text style={styles.contactText}>Email: ilhacoop@yahoo.com.br</Text>
+          <Text style={styles.contactText}>Telefone: (21) 2467-2200</Text>
+          <Text style={styles.contactText}>Endereço: Av. Paranapuã, Ilha do Governado, Rio de Janeiro - RJ</Text>
         </View>
       </View>
     </ScrollView>

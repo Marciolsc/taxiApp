@@ -1,8 +1,23 @@
-import { View, Text, StyleSheet, TextInput, Pressable, Linking, ScrollView } from 'react-native';
+
+
 import colors from '@/constants/colors';
+import { View, Text, StyleSheet, TextInput, Pressable, Linking, ScrollView } from 'react-native';
+import { Link } from 'expo-router';
+import { useState } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  function handleSignIn() {
+    console.log({
+      email,
+      senha
+    })
+  }
+  
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
@@ -30,6 +45,8 @@ export default function Login() {
               placeholder="Endereço de Email"
               placeholderTextColor="#A9A9A9"
               style={styles.input}
+              value={email}
+              onChangeText={setEmail}
             />
           </View>
 
@@ -40,25 +57,29 @@ export default function Login() {
               placeholderTextColor="#A9A9A9"
               secureTextEntry
               style={styles.input}
+              value={senha}
+              onChangeText={setSenha}
+
             />
           </View>
 
-          <Pressable style={styles.button}>
+          <Pressable style={styles.button} onPress={handleSignIn}>
             <Text style={styles.buttonText}>Entrar</Text>
           </Pressable>
 
           <Text style={{ textAlign: 'center', marginTop: 16 }}>
             Esqueci minha senha{' '}
-            <Text style={{ color: colors.azul_Taxi }} onPress={() => Linking.openURL('')}>
-              clique aqui
-            </Text>
+            <Link href = '/(panel)/profile/page'>
+              <Text style={{ color: colors.azul_Taxi }}>Clique aqui</Text>
+            </Link>
           </Text>
 
           <Text style={{ textAlign: 'center', marginTop: 16 }}>
             Ainda não possui uma conta?{' '}
-            <Text style={{ color: colors.azul_Taxi }} onPress={() => Linking.openURL('/(auth)/signup/page')}>
-              Cadastre-se
-            </Text>
+            <Link href = '/(auth)/signup/page'>
+              <Text style={{ color: colors.azul_Taxi }}>Cadastre-se</Text>
+            </Link>
+            
           </Text>
         </View>
 

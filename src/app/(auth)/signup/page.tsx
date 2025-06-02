@@ -27,6 +27,12 @@ export default function Signup() {
       <ScrollView style={{ flex: 1, backgroundColor: colors.white }}>
         <View style={styles.container}>
           <View style={styles.header}>
+            <Pressable 
+            style = {styles.voltar}
+            onPress ={()=> router.back()}
+            >
+              <Ionicons name = "arrow-back"  size = {24} color = {colors.white} />
+            </Pressable>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
               <Text
                 style={[

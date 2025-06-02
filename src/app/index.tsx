@@ -22,7 +22,7 @@ export default function Login() {
 
       <View style={styles.form}>
         <View>
-          <Text style={styles.label}>Email</Text>
+          <Text style={[styles.label, { fontWeight: 'bold', fontSize: 18, textAlign: 'center' }]}>Email</Text>
           <TextInput
             placeholder="Endereço de Email"
             placeholderTextColor="#A9A9A9"
@@ -31,7 +31,7 @@ export default function Login() {
         </View>
 
         <View>
-          <Text style={styles.label}>Senha</Text>
+          <Text style={[styles.label, { fontWeight: 'bold', fontSize: 18, textAlign: 'center' }]}>Senha</Text>
           <TextInput
             placeholder="Ensira sua senha"
             placeholderTextColor="#A9A9A9"
@@ -45,14 +45,19 @@ export default function Login() {
         </Pressable>
 
         <Text style={{ textAlign: 'center', marginTop: 16 }}>
-          Ainda não possui uma conta?{' '}
+          Esqueci minha senha{' '}
           <Text
-            style={{ color: colors.azul_Taxi }}
-            onPress={() => Linking.openURL('/(auth)/signup/page')}
-          >
-            Cadastre-se
+            style={{ color: colors.azul_Taxi }} onPress={() => Linking.openURL('')}>clique aqui
           </Text>
         </Text>
+        
+        <Text style={{ textAlign: 'center', marginTop: 16 }}>
+          Ainda não possui uma conta?{' '}
+          <Text
+            style={{ color: colors.azul_Taxi }} onPress={() => Linking.openURL('/(auth)/signup/page')}>Cadastre-se
+          </Text>
+        </Text>
+
       </View>
 
       {/* Rodapé com redes sociais */}

@@ -8,34 +8,37 @@ export default function Login() {
     
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.logoText}>
-          Ta<Text style ={{color: colors.azul_Taxi}}>xi</Text>
-        </Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text style={styles.logoText}>
+            TAXI<Text style={{ color: colors.azul_Taxi }}> IlhaCoop</Text>
+          </Text>
+        </View>
       </View>
 
       <View style={styles.form}>
         <View>
           <Text style= {styles.label}>Email</Text>
           <TextInput
-            placeholder='Email aqui'
+            placeholder='Endereço de Email'
+            placeholderTextColor="#A9A9A9"
             style={styles.input}/>
         </View>
 
         <View>
-          <Text style= {styles.label}>Senha</Text>
+          <Text style={styles.label}>Senha</Text>
           <TextInput
-            placeholder='Senha aqui'
+            placeholder="Ensira sua senha"
+            placeholderTextColor="#A9A9A9"
             secureTextEntry
-            style={styles.input}/>
+            style={styles.input}
+          />
         </View>
 
         <Pressable style = {styles.button}>
           <Text style ={ styles.buttonText}>Entrar</Text>
         </Pressable>
 
-        <Link href= "/(auth)/signup/page" style={styles.link}>
-          <Text>Ainda não possui uma conta? Cadastre-se</Text>
-        </Link>
+          <Text style={{ textAlign: 'center', marginTop: 16 }} >Ainda não possui uma conta? <a href="/(auth)/signup/page">Cadastre-se</a></Text>
 
       </View>   
         

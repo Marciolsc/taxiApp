@@ -12,26 +12,11 @@ export default function Login() {
             <Text
               style={[
                 styles.logoText,
-                {
-                  textShadowColor: '#fff',
-                  textShadowOffset: { width: 1, height: 1 },
-                  textShadowRadius: 2,
-                },
-              ]}
-            >
-              Taxi
+                {textShadowColor: '#fff',textShadowOffset: { width: 1, height: 1 },textShadowRadius: 2,},]}>Taxi
               <Text
                 style={[
                   styles.logoText,
-                  {
-                    color: colors.azul_Taxi,
-                    textShadowColor: '#fff',
-                    textShadowOffset: { width: 1, height: 1 },
-                    textShadowRadius: 2,
-                  },
-                ]}
-              >
-                {' '}IlhaCoop
+                  {color: colors.azul_Taxi,textShadowColor: '#fff',textShadowOffset: { width: 1, height: 1 },textShadowRadius: 2,},]}> IlhaCoop
               </Text>
             </Text>
           </View>

@@ -1,9 +1,11 @@
 
 import { useState } from 'react';
 import colors from '@/constants/colors';
-import { View, Text, StyleSheet, TextInput, Pressable, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Alert, Pressable, SafeAreaView, ScrollView } from 'react-native';
 import { router } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons';
+import { supabase } from '../../../lib/supabase';
+
 
 
 
@@ -14,13 +16,28 @@ export default function Signup() {
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
 
-  function handleSignUp() {
-    console.log({
-      name,
-      email,
-      senha
-    })
-  }
+async function handleSignUp() {
+    setLoading(true);
+    try {
+    
+      const {  data, error } = await supabase.auth.signUp({
+        email: email,
+        password: senha,
+      })
+      
+      router.replace('/')
+    } catch (error) {
+      console.log(error)
+      
+      Alert.alert('Erro inesperado');
+    
+    } finally {
+     
+      setLoading(false);
+    }
+
+  }
+  
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -37,11 +54,11 @@ export default function Signup() {
               <Text
                 style={[
                   styles.logoText,
-                  { textShadowColor: '#fff', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 2, },]}>Taxi
+                  {textShadowColor: '#fff',textShadowOffset: { width: 1, height: 1 },textShadowRadius: 2,},]}>Taxi
                 <Text
                   style={[
                     styles.logoText,
-                    { color: colors.azul_Taxi, textShadowColor: '#fff', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 2, },]}> IlhaCoop
+                    {color: colors.azul_Taxi,textShadowColor: '#fff',textShadowOffset: { width: 1, height: 1 },textShadowRadius: 2,},]}> IlhaCoop
                 </Text>
               </Text>
             </View>
@@ -120,10 +137,11 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 35,
     fontWeight: 'bold',
-    color: colors.amarelo_Taxi,
-    marginBottom: 8,
-  },
 
+    marginBottom: 8,
+    boxShadow: '1px 1px 2px rgba(255, 255, 255, 0.993)',
+  },
+  
   slogan: {
     fontSize: 34,
     color: colors.white,

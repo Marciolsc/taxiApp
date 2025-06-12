@@ -9,6 +9,7 @@ import { supabase } from '../../../lib/supabase';
 
 
 
+
 export default function Signup() {
 
   const [name, setName] = useState('');
@@ -23,20 +24,27 @@ async function handleSignUp() {
       const {  data, error } = await supabase.auth.signUp({
         email: email,
         password: senha,
+        options:{
+          data:{
+            name: name
+          }
+        }
       })
       
       router.replace('/')
     } catch (error) {
       console.log(error)
       
-      Alert.alert('Erro inesperado');
+      Alert.alert('Erro inesperado.');
+      setLoading(false);
     
     } finally {
-     
+      
+      Alert.alert('Cadastro efetuado com sucesso.');
       setLoading(false);
-    }
 
-  }
+    }
+  }
   
 
   return (
@@ -99,7 +107,9 @@ async function handleSignUp() {
             </View>
 
             <Pressable style={styles.button} onPress={handleSignUp}>
-              <Text style={styles.buttonText}>Cadastrar</Text>
+              <Text style={styles.buttonText}>Cadastrar
+                  {loading? 'Carregando...' : 'Cadastrar'}
+              </Text>
             </Pressable>
 
             {/* Informações de Contato */}
@@ -137,9 +147,8 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 35,
     fontWeight: 'bold',
-
     marginBottom: 8,
-    boxShadow: '1px 1px 2px rgba(255, 255, 255, 0.993)',
+   
   },
   
   slogan: {

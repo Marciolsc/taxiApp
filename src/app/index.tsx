@@ -1,21 +1,41 @@
 
 
 import colors from '@/constants/colors';
-import { View, Text, StyleSheet, TextInput, Pressable, Linking, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Alert, Pressable, Linking, ScrollView } from 'react-native';
 import { Link } from 'expo-router';
 import { useState } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
+import { supabase } from '../lib/supabase';
+import { router } from 'expo-router'
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
 
-  function handleSignIn() {
-    console.log({
-      email,
-      senha
+  async function handleSignIn() {
+    
+    setLoading(true);
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: senha
+
     })
+
+    } catch(error) {
+      
+      Alert.alert('Erro inesperado.');
+      setLoading(false);
+
+    } finally {
+     
+      setLoading(false);
+      router.replace('/(panel)/profile/page')
+    
+    }
+
   }
   
   return (

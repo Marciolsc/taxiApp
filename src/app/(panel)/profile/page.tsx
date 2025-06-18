@@ -12,48 +12,56 @@ export default function Profile() {
     setAuth(null)
 
     if (error) {
-      Alert.alert("Error ao deslogar.")
+      Alert.alert("Erro ao deslogar.")
     }
   }
 
-
-
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text
-          style={[
-            styles.logoText,
-            { textShadowColor: '#fff', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 2, },]}>Taxi
-          <Text
-            style={[
-              styles.logoText,
-              { color: colors.azul_Taxi, textShadowColor: '#fff', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 2, },]}> IlhaCoop
-          </Text>
+      {/* Texto do topo */}
+      <View style={styles.topContainer}>
+        <Text style={styles.logoText}>
+          Taxi
+          <Text style={styles.logoTextBlue}> IlhaCoop</Text>
         </Text>
       </View>
 
-
-      <Text>pagina perfil</Text>
-      <Button title='Deslogar' onPress={handleSignout} />
-
-
-
+      {/* Conteúdo central */}
+      <View style={styles.centerContainer}>
+        <Text>Página Perfil</Text>
+        <Button title='Deslogar' onPress={handleSignout} />
+      </View>
     </View>
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
+  },
+  topContainer: {
+    paddingTop: 40, // Espaço para status bar
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  centerContainer: {
+    flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   logoText: {
     fontSize: 35,
     fontWeight: 'bold',
     color: colors.amarelo_Taxi,
-    marginBottom: 8,
+    textShadowColor: '#fff',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+  },
+  logoTextBlue: {
+    color: colors.azul_Taxi,
+    textShadowColor: '#fff',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
 });

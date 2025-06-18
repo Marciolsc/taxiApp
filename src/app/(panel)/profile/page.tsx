@@ -17,10 +17,18 @@ export default function Profile() {
     }
 
     let location = await Location.getCurrentPositionAsync({});
-    setUserLocation({
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-    });
+    const { latitude, longitude } = location.coords;
+
+    setUserLocation({ latitude, longitude });
+
+    // Agora: Faz o Reverse Geocoding pra pegar o endereço
+    let addressList = await Location.reverseGeocodeAsync({ latitude, longitude });
+
+    if (addressList.length > 0) {
+      const address = addressList[0];
+      const fullAddress = `${address.street || ''}, ${address.name || ''} - ${address.district || ''}, ${address.city || ''}`;
+      setStartLocation(fullAddress);
+    }
   }
 
   useEffect(() => {
@@ -53,7 +61,7 @@ export default function Profile() {
             latitudeDelta: 0.01,
             longitudeDelta: 0.01,
           }}
-          showsUserLocation={true} // Só o pontinho azul do usuário
+          showsUserLocation={true}
         />
       ) : (
         <View style={styles.loadingContainer}>
@@ -61,7 +69,7 @@ export default function Profile() {
         </View>
       )}
 
-      {/* Inputs flutuantes */}
+      {/* Inputs */}
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Ponto de partida"

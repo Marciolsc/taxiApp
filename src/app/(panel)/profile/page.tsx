@@ -1,28 +1,43 @@
 import { useAuth } from '@/src/contexts/AuthContext';
 import { supabase } from '@/src/lib/supabase';
-import { View, Text, StyleSheet, Button, Alert} from 'react-native'
+import { View, Text, StyleSheet, Button, Alert } from 'react-native'
 
 export default function Profile() {
-  
-  const {setAuth} = useAuth();
-  
-  async function handleSignout(){
+
+  const { setAuth } = useAuth();
+
+  async function handleSignout() {
     const { error } = await supabase.auth.signOut();
     setAuth(null)
-    
-    if(error){
+
+    if (error) {
       Alert.alert("Error ao deslogar.")
     }
   }
-  
-  
-  
-  return (
-    <View style ={styles.container}>
-      <Text>pagina perfil</Text>
 
-      <Button title= 'Deslogar'  onPress = {handleSignout}/>
-     
+
+
+  return (
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text
+            style={[
+              styles.logoText,
+              { textShadowColor: '#fff', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 2, },]}>Taxi
+            <Text
+              style={[
+                styles.logoText,
+                { color: colors.azul_Taxi, textShadowColor: '#fff', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 2, },]}> IlhaCoop
+            </Text>
+          </Text>
+        </View>
+      </View>
+      <Text>pa gina perfil</Text>
+
+      <Button title='Deslogar' onPress={handleSignout} />
+
 
 
     </View>

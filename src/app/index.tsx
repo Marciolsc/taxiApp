@@ -9,6 +9,7 @@ import { supabase } from '../lib/supabase';
 import { router } from 'expo-router'
 
 export default function Login() {
+  
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
@@ -17,24 +18,21 @@ export default function Login() {
     
     setLoading(true);
 
-    try {
+  
       const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: senha
 
     })
 
-    } catch(error) {
-      
-      Alert.alert('Erro inesperado.');
+    if(error){
+      Alert.alert('Error', error.message)
       setLoading(false);
-
-    } finally {
-     
-      setLoading(false);
-      router.replace('/(panel)/profile/page')
-    
+      return;
     }
+
+     setLoading(false);
+    router.replace('/(panel)/profile/page')
 
   }
   
@@ -84,7 +82,7 @@ export default function Login() {
           </View>
 
           <Pressable style={styles.button} onPress={handleSignIn}>
-            <Text style={styles.buttonText}>Entrar</Text>
+            <Text style={styles.buttonText}>{loading ? 'Carregando...' : 'Entrar'}</Text>
           </Pressable>
 
           <Text style={{ textAlign: 'center', marginTop: 16 }}>

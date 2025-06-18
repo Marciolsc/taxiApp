@@ -107,7 +107,7 @@ async function handleSignUp() {
             </View>
 
             <Pressable style={styles.button} onPress={handleSignUp}>
-              <Text style={styles.buttonText}>Cadastrar
+              <Text style={styles.buttonText}>
                   {loading? 'Carregando...' : 'Cadastrar'}
               </Text>
             </Pressable>

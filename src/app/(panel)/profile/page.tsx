@@ -1,7 +1,8 @@
 import { useAuth } from '@/src/contexts/AuthContext';
 import { supabase } from '@/src/lib/supabase';
-import { View, Text, StyleSheet, Button, Alert } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import colors from '@/constants/colors';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function Profile() {
 
@@ -9,27 +10,33 @@ export default function Profile() {
 
   async function handleSignout() {
     const { error } = await supabase.auth.signOut();
-    setAuth(null)
+    setAuth(null);
 
     if (error) {
-      Alert.alert("Erro ao deslogar.")
+      Alert.alert("Erro ao deslogar.");
     }
   }
 
   return (
     <View style={styles.container}>
-      {/* Texto do topo */}
+      {/* Topo com logo e botão de logout */}
       <View style={styles.topContainer}>
+        {/* Logo */}
         <Text style={styles.logoText}>
           Taxi
           <Text style={styles.logoTextBlue}> IlhaCoop</Text>
         </Text>
+
+        {/* Botão de Logout */}
+        <TouchableOpacity style={styles.logoutButton} onPress={handleSignout}>
+          <Icon name="logout" size={20} color="#fff" />
+          <Text style={styles.logoutText}>Sair</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Conteúdo central */}
       <View style={styles.centerContainer}>
         <Text>Página Perfil</Text>
-        <Button title='Deslogar' onPress={handleSignout} />
       </View>
     </View>
   );
@@ -41,9 +48,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   topContainer: {
-    paddingTop: 40, // Espaço para status bar
-    alignItems: 'center',
-    marginBottom: 20,
+    paddingTop: 40,
+    paddingBottom: 10,
+    paddingHorizontal: 16,
+    backgroundColor: '#001F3F',
   },
   centerContainer: {
     flex: 1,
@@ -57,11 +65,28 @@ const styles = StyleSheet.create({
     textShadowColor: '#fff',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
+    textAlign: 'center',
   },
   logoTextBlue: {
     color: colors.azul_Taxi,
     textShadowColor: '#fff',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
+  },
+  logoutButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-end', // Alinha à direita
+    marginTop: 8,
+    backgroundColor: '#FF4136', // Cor de fundo do botão (exemplo: vermelho)
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+  },
+  logoutText: {
+    color: '#fff',
+    marginLeft: 5,
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });

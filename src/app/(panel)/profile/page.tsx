@@ -1,6 +1,7 @@
 import { useAuth } from '@/src/contexts/AuthContext';
 import { supabase } from '@/src/lib/supabase';
 import { View, Text, StyleSheet, Button, Alert } from 'react-native'
+import colors from '@/constants/colors';
 
 export default function Profile() {
 
@@ -31,8 +32,9 @@ export default function Profile() {
           </Text>
         </Text>
       </View>
-      <Text>pa gina perfil</Text>
 
+
+      <Text>pagina perfil</Text>
       <Button title='Deslogar' onPress={handleSignout} />
 
 
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
-  }
+  },
   logoText: {
     fontSize: 35,
     fontWeight: 'bold',

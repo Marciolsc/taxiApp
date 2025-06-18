@@ -19,20 +19,17 @@ export default function Profile() {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text
+          style={[
+            styles.logoText,
+            { textShadowColor: '#fff', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 2, },]}>Taxi
           <Text
             style={[
               styles.logoText,
-              { textShadowColor: '#fff', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 2, },]}>Taxi
-            <Text
-              style={[
-                styles.logoText,
-                { color: colors.azul_Taxi, textShadowColor: '#fff', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 2, },]}> IlhaCoop
-            </Text>
+              { color: colors.azul_Taxi, textShadowColor: '#fff', textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 2, },]}> IlhaCoop
           </Text>
-        </View>
+        </Text>
       </View>
       <Text>pa gina perfil</Text>
 
@@ -49,74 +46,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    header: {
-      paddingLeft: 14,
-      paddingRight: 14,
-      paddingBottom: 70,
-    },
-    logoText: {
-      fontSize: 35,
-      fontWeight: 'bold',
-      color: colors.amarelo_Taxi,
-      marginBottom: 8,
-    },
-    form: {
-      flex: 1,
-      backgroundColor: colors.white,
-      borderTopLeftRadius: 16,
-      borderTopRightRadius: 16,
-      paddingTop: 24,
-      paddingLeft: 14,
-      paddingRight: 14,
-    },
-    label: {
-      color: colors.zinc,
-      marginBottom: 4,
-    },
-    input: {
-      borderWidth: 1,
-      borderColor: colors.gray,
-      borderRadius: 8,
-      marginBottom: 16,
-      paddingHorizontal: 8,
-      paddingTop: 14,
-      paddingBottom: 14,
-    },
-    button: {
-      backgroundColor: colors.gray,
-      paddingTop: 14,
-      paddingBottom: 14,
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '100%',
-      borderRadius: 8,
-    },
-    buttonText: {
-      fontWeight: 'bold',
-      color: '#000',
-    },
-    footer: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingVertical: 10,
-      backgroundColor: colors.white,
-    },
-    icon: {
-      marginHorizontal: 12,
-    },
-    contactInfo: {
-      backgroundColor: colors.white,
-      paddingVertical: 16,
-      paddingHorizontal: 20,
-      borderTopWidth: 1,
-      borderTopColor: '#ccc',
-    },
-    contactText: {
-      textAlign: 'center',
-      fontSize: 14,
-      color: '#555',
-      marginBottom: 4,
-    }
-  });
+    alignItems: 'center'
+  }
+  logoText: {
+    fontSize: 35,
+    fontWeight: 'bold',
+    color: colors.amarelo_Taxi,
+    marginBottom: 8,
+  },
+});

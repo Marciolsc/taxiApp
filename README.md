@@ -39,9 +39,26 @@ Além de focar no usuário final, tivemos o cuidado de criar uma interface clara
 
 ![Imagem do WhatsApp de 2025-06-19 à(s) 00 03 34_941dabca](https://github.com/user-attachments/assets/54286342-f220-4975-831f-fb416698d691)
 
+# 📰Considerações Finais sobre o trabalho📰
+
+Relato do Igor: Durante o desenvolvimento desse projeto eu fiquei responsável por algumas partes importantes do aplicativo. Minha principal tarefa foi fazer a parte da busca no mapa, ou seja, a funcionalidade onde o usuário consegue escolher o local de embarque e o destino direto no mapa interativo.
+
+Além disso, também fui o responsável por criar a tela de solicitação de corrida, onde o passageiro consegue visualizar o endereço escolhido, confirmar a corrida e enviar a solicitação para a cooperativa.
+
+Outro ponto que fiz questão de cuidar foi a parte visual do aplicativo. Trabalhei bastante para deixar a interface mais bonita e agradável, com cores, ícones e um layout mais organizado, sempre pensando na experiência do usuário final.
+
+Foi uma experiência bem interessante, principalmente por ser a primeira vez que trabalhei com mapas no React Native. Nunca tinha feito nada parecido em nenhum outro projeto ou atividade, então precisei pesquisar bastante e testar várias soluções até conseguir o resultado que queria. No final, gostei muito de trabalhar com essa funcionalidade e achei bem legal aprender algo novo que pode ser útil em projetos futuros.
+
+No geral, foi um trabalho desafiador, mas muito gratificante. Consegui aplicar muita coisa que aprendemos nas aulas e também aprender bastante por conta própria.
+
+Relato do Marcio: durante o desenvolvimento do aplicativo da Ilha Coop, fiquei responsável por algumas partes mais técnicas relacionadas ao funcionamento interno do app.
+
+Uma das minhas principais funções foi o controle do layout das telas, garantindo que os componentes ficassem bem organizados e que a navegação entre elas fosse fluida e intuitiva. Trabalhei bastante com os hooks do React, principalmente o useState e o useEffect, para controlar os estados da aplicação e o comportamento das telas conforme as interações do usuário.
+
+Também fiquei responsável pela configuração e utilização do router, usando o expo-router, o que permitiu criar uma navegação mais simples entre as páginas de login, cadastro e solicitação de corrida.
+
+Outra parte que me dediquei foi a implementação do banco de dados, utilizando a plataforma Supabase. Fiz a integração entre o aplicativo e o banco, criando as funções de cadastro de usuários e login, além de configurar toda a parte de comunicação entre o front-end e o back-end.
+
+No geral, foi uma experiência muito válida, principalmente por ter que trabalhar com coisas novas como a Supabase, que eu ainda não tinha usado antes. Aprendi bastante sobre autenticação, armazenamento de dados e também sobre controle de rotas e estados no React Native, o que com certeza vai me ajudar muito em projetos futuros.
 
 
-
-
-
-# taxiApp

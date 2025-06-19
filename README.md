@@ -24,5 +24,24 @@ Com essas ferramentas, conseguimos criar um sistema funcional, visualmente agrad
 
 Além de focar no usuário final, tivemos o cuidado de criar uma interface clara e de fácil interpretação também para os motoristas da cooperativa, garantindo que tanto o passageiro quanto o taxista tivessem uma experiência fluida e objetiva dentro da aplicação
 
-#📱Prints das telas criadas para o aplicativo📱
+# 📱Prints das telas criadas para o aplicativo📱
+
+-------Grafo arvore da passagem das telas-------
+![image](https://github.com/user-attachments/assets/38d0ce2b-7183-4ee1-afd0-eac3194654f8)
+
+-------Prints das telas-------
+TELA INICIAL
+![image](https://github.com/user-attachments/assets/16913682-16ff-4332-ba74-99878ea45f6c)
+TELA DE CADASTRO
+![Imagem do WhatsApp de 2025-06-19 à(s) 00 03 33_836618b6](https://github.com/user-attachments/assets/7ab46907-21c1-413c-bba4-186815be206e)
+TELA DE SOLICITAÇÃO DE CORRIDA
+![Imagem do WhatsApp de 2025-06-18 à(s) 21 06 04_a80c89ca](https://github.com/user-attachments/assets/770c960f-d207-438d-a3e8-41a2f41ab3df)
+MENSAGEM DE CORRIDA SOLICITADA
+![Imagem do WhatsApp de 2025-06-19 à(s) 00 03 34_941dabca](https://github.com/user-attachments/assets/54286342-f220-4975-831f-fb416698d691)
+
+
+
+
+
+
 # taxiApp

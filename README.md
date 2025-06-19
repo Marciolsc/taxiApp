@@ -5,7 +5,7 @@
 
   O desenvolvimento deste aplicativo também proporcionou uma experiência importante de trabalho em equipe, planejamento de interface e organização de funcionalidades, preparando os alunos para futuros desafios no mercado de desenvolvimento mobile.
   
-# 🖥️Explicação do grupo para uso do react e bibliotecas🖥️
+# 🖥️Explicação para uso do react e das bibliotecas🖥️
 O principal objetivo do grupo foi desenvolver um aplicativo de fácil e rápido acesso para o cliente final, facilitando o processo de solicitação de corridas com a cooperativa Ilha Coop. Buscamos criar uma interface simples, moderna e de fácil interpretação tanto para os passageiros quanto para os motoristas da cooperativa.
 
 Para o desenvolvimento, utilizamos o framework React Native, que permite criar aplicações móveis com ótimo desempenho e compatibilidade com diferentes dispositivos Android. Além disso, contamos com o auxílio de diversas bibliotecas externas, que contribuíram para melhorar a experiência do usuário e a funcionalidade do aplicativo.

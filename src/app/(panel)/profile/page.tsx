@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, TextInput } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Marker, MapEvent } from 'react-native-maps';
 import * as Location from 'expo-location';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useAuth } from '@/src/contexts/AuthContext';
+import { supabase } from '@/src/lib/supabase';
 
 export default function Profile() {
+  const { setAuth } = useAuth();
+
   const [startLocation, setStartLocation] = useState('');
   const [endLocation, setEndLocation] = useState('');
-  const [userLocation, setUserLocation] = useState<{ latitude: number, longitude: number } | null>(null);
+  const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+  const [destinationCoords, setDestinationCoords] = useState<{ latitude: number; longitude: number } | null>(null);
 
   async function getLocation() {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -21,7 +26,6 @@ export default function Profile() {
 
     setUserLocation({ latitude, longitude });
 
-    // Agora: Faz o Reverse Geocoding pra pegar o endereço
     let addressList = await Location.reverseGeocodeAsync({ latitude, longitude });
 
     if (addressList.length > 0) {
@@ -35,15 +39,50 @@ export default function Profile() {
     getLocation();
   }, []);
 
-  function handleSignout() {
-    Alert.alert('Logout', 'Você clicou em sair.');
+  async function handleSignout() {
+    const { error } = await supabase.auth.signOut();
+    setAuth(null);
+
+    if (error) {
+      Alert.alert('Error ao deslogar.');
+    }
+  }
+
+  // Função para quando o usuário toca no mapa
+  async function handleMapPress(event: MapEvent) {
+    const { latitude, longitude } = event.nativeEvent.coordinate;
+    setDestinationCoords({ latitude, longitude });
+
+    // Opcional: faz reverse geocode para pegar endereço e mostrar no campo
+    try {
+      let addressList = await Location.reverseGeocodeAsync({ latitude, longitude });
+      if (addressList.length > 0) {
+        const address = addressList[0];
+        const fullAddress = `${address.street || ''}, ${address.name || ''} - ${address.district || ''}, ${address.city || ''}`;
+        setEndLocation(fullAddress);
+      } else {
+        setEndLocation(`${latitude.toFixed(6)}, ${longitude.toFixed(6)}`);
+      }
+    } catch {
+      setEndLocation(`${latitude.toFixed(6)}, ${longitude.toFixed(6)}`);
+    }
+  }
+
+  function handleRequestRide() {
+    Alert.alert(
+      'Taxi IlhaCoop',
+      'Sua corrida foi solicitada.\n\nNosso time de colaboradores entrará em contato pelo seu número de telefone para confirmar sua corrida.\n\nAgradecemos a preferência!',
+      [{ text: 'OK' }]
+    );
   }
 
   return (
     <View style={styles.container}>
       {/* Topo */}
       <View style={styles.topBar}>
-        <Text style={styles.logoText}>Taxi <Text style={styles.logoTextBlue}>IlhaCoop</Text></Text>
+        <Text style={styles.logoText}>
+          Taxi <Text style={styles.logoTextBlue}>IlhaCoop</Text>
+        </Text>
 
         <TouchableOpacity style={styles.logoutButton} onPress={handleSignout}>
           <Icon name="logout" size={20} color="#fff" />
@@ -62,7 +101,11 @@ export default function Profile() {
             longitudeDelta: 0.01,
           }}
           showsUserLocation={true}
-        />
+          onPress={handleMapPress}
+        >
+          {/* Mostra o marcador do destino escolhido */}
+          {destinationCoords && <Marker coordinate={destinationCoords} />}
+        </MapView>
       ) : (
         <View style={styles.loadingContainer}>
           <Text>Carregando localização...</Text>
@@ -83,7 +126,7 @@ export default function Profile() {
           onChangeText={setEndLocation}
           style={styles.input}
         />
-        <TouchableOpacity style={styles.requestButton}>
+        <TouchableOpacity style={styles.requestButton} onPress={handleRequestRide}>
           <Text style={styles.requestButtonText}>Solicitar Corrida</Text>
         </TouchableOpacity>
       </View>

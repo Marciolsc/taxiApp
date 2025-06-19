@@ -18,33 +18,29 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
 
 async function handleSignUp() {
-    setLoading(true);
-    try {
-    
-      const {  data, error } = await supabase.auth.signUp({
-        email: email,
-        password: senha,
-        options:{
-          data:{
-            name: name
-          }
-        }
-      })
-      
-      router.replace('/')
-    } catch (error) {
-      console.log(error)
-      
-      Alert.alert('Erro inesperado.');
-      setLoading(false);
-    
-    } finally {
-      
-      Alert.alert('Cadastro efetuado com sucesso.');
-      setLoading(false);
+  setLoading(true);
+ 
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: senha,
+      options: {
+        data: {
+          name: name,
+        },
+      },
+    });
 
+    if (error) {
+      console.log(error);
+      Alert.alert('Erro no cadastro:', error.message);
+      setLoading(false);
+      return;
     }
-  }
+
+    Alert.alert('Cadastro efetuado com sucesso!');
+    setLoading(false);
+    router.replace('/');
+}
   
 
   return (
@@ -62,7 +58,7 @@ async function handleSignUp() {
               <Text
                 style={[
                   styles.logoText,
-                  {textShadowColor: '#fff',textShadowOffset: { width: 1, height: 1 },textShadowRadius: 2,},]}>Taxi
+                  {color: colors.amarelo_Taxi,textShadowColor: '#fff',textShadowOffset: { width: 1, height: 1 },textShadowRadius: 2,},]}>Taxi
                 <Text
                   style={[
                     styles.logoText,
@@ -151,13 +147,6 @@ const styles = StyleSheet.create({
    
   },
   
-  slogan: {
-    fontSize: 34,
-    color: colors.white,
-    marginBottom: 34,
-
-  },
-
   form: {
     flex: 1,
     backgroundColor: colors.white,

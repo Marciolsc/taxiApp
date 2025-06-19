@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, TextInput, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, TextInput, Linking } from 'react-native';
 import MapView, { Marker, MapEvent } from 'react-native-maps';
 import * as Location from 'expo-location';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -10,23 +10,10 @@ export default function Profile() {
   const { setAuth } = useAuth();
 
   const [startLocation, setStartLocation] = useState('');
-  const [startState, setStartState] = useState('');
   const [endLocation, setEndLocation] = useState('');
+  const [whatsappNumber, setWhatsappNumber] = useState('');
   const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [destinationCoords, setDestinationCoords] = useState<{ latitude: number; longitude: number } | null>(null);
-  const [filteredDestinations, setFilteredDestinations] = useState<string[]>([]);
-
-  const destinosExemplo = [
-    'Praia da Bica',
-    'Aeroporto Galeão',
-    'Shopping Ilha Plaza',
-    'Hospital Ilha do Governador',
-    'Estrada do Dendê',
-    'Cacuia',
-    'Praia do Barão',
-    'Pitangueiras',
-    'Jardim Guanabara',
-  ];
 
   async function getLocation() {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -46,7 +33,6 @@ export default function Profile() {
       const address = addressList[0];
       const fullAddress = `${address.street || ''}, ${address.name || ''} - ${address.district || ''}, ${address.city || ''}`;
       setStartLocation(fullAddress);
-      setStartState(address.region || address.state || '');
     }
   }
 
@@ -59,7 +45,7 @@ export default function Profile() {
     setAuth(null);
 
     if (error) {
-      Alert.alert('Error ao deslogar.');
+      Alert.alert('Erro ao deslogar.');
     }
   }
 
@@ -73,7 +59,8 @@ export default function Profile() {
         const address = addressList[0];
         const fullAddress = `${address.street || ''}, ${address.name || ''} - ${address.district || ''}, ${address.city || ''}`;
         setEndLocation(fullAddress);
-        setFilteredDestinations([]); // limpa sugestões
+      } else {
+        setEndLocation(`${latitude.toFixed(6)}, ${longitude.toFixed(6)}`);
       }
     } catch {
       setEndLocation(`${latitude.toFixed(6)}, ${longitude.toFixed(6)}`);
@@ -81,31 +68,49 @@ export default function Profile() {
   }
 
   function handleRequestRide() {
+    if (!whatsappNumber.trim()) {
+      Alert.alert('Atenção', 'Por favor, informe seu número de WhatsApp para contato.');
+      return;
+    }
+    if (!startLocation.trim() || !endLocation.trim()) {
+      Alert.alert('Atenção', 'Por favor, preencha o ponto de partida e o destino.');
+      return;
+    }
+
+    const empresaWhatsApp = '+5521985910464';
+
+    const mensagem =
+      `🚖 *Solicitação de Corrida - Ilha Coop*\n\n` +
+      `Olá, equipe Ilha Coop! Gostaria de solicitar uma corrida.\n\n` +
+      `📍 *Ponto de Partida:* ${startLocation}\n` +
+      `🏁 *Destino:* ${endLocation}\n` +
+      `📲 *WhatsApp para contato:* ${whatsappNumber}\n\n` +
+      `Por favor, entrem em contato para confirmar os detalhes da corrida.\n\n` +
+      `Obrigado!`;
+
+    const url = `https://wa.me/${empresaWhatsApp.replace(/\D/g, '')}?text=${encodeURIComponent(mensagem)}`;
+
     Alert.alert(
       'Taxi IlhaCoop',
-      'Sua corrida foi solicitada.\n\nNosso time de colaboradores entrará em contato pelo seu número de telefone para confirmar sua corrida.\n\nAgradecemos a preferência!',
-      [{ text: 'OK' }]
+      'Você será direcionado ao contato do nosso atendente no WhatsApp para confirmar sua corrida.',
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            Linking.canOpenURL(url)
+              .then((supported) => {
+                if (!supported) {
+                  Alert.alert('Erro', 'WhatsApp não está instalado no dispositivo.');
+                } else {
+                  return Linking.openURL(url);
+                }
+              })
+              .catch(() => Alert.alert('Erro', 'Não foi possível abrir o WhatsApp.'));
+          },
+        },
+        { text: 'Cancelar', style: 'cancel' },
+      ]
     );
-  }
-
-  // Função para filtrar destinos conforme o usuário digita
-  function handleDestinationChange(text: string) {
-    setEndLocation(text);
-
-    if (text.length > 0) {
-      const filtered = destinosExemplo.filter(destino =>
-        destino.toLowerCase().includes(text.toLowerCase())
-      );
-      setFilteredDestinations(filtered);
-    } else {
-      setFilteredDestinations([]);
-    }
-  }
-
-  // Quando o usuário clica numa sugestão
-  function handleSelectDestination(destino: string) {
-    setEndLocation(destino);
-    setFilteredDestinations([]);
   }
 
   return (
@@ -121,13 +126,6 @@ export default function Profile() {
           <Text style={styles.logoutText}>Sair</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Estado */}
-      {startState ? (
-        <View style={styles.stateContainer}>
-          <Text style={styles.stateText}>Estado: {startState}</Text>
-        </View>
-      ) : null}
 
       {/* Mapa */}
       {userLocation ? (
@@ -161,26 +159,16 @@ export default function Profile() {
         <TextInput
           placeholder="Destino"
           value={endLocation}
-          onChangeText={handleDestinationChange}
+          onChangeText={setEndLocation}
           style={styles.input}
         />
-
-        {/* FlatList de sugestões */}
-        {filteredDestinations.length > 0 && (
-          <FlatList
-            data={filteredDestinations}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={styles.suggestionItem}
-                onPress={() => handleSelectDestination(item)}
-              >
-                <Text>{item}</Text>
-              </TouchableOpacity>
-            )}
-          />
-        )}
-
+        <TextInput
+          placeholder="Número WhatsApp (com DDD)"
+          value={whatsappNumber}
+          onChangeText={setWhatsappNumber}
+          keyboardType="phone-pad"
+          style={styles.input}
+        />
         <TouchableOpacity style={styles.requestButton} onPress={handleRequestRide}>
           <Text style={styles.requestButtonText}>Solicitar Corrida</Text>
         </TouchableOpacity>
@@ -190,7 +178,9 @@ export default function Profile() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
   topBar: {
     paddingTop: 40,
     paddingBottom: 10,
@@ -205,7 +195,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFD700',
   },
-  logoTextBlue: { color: '#0074D9' },
+  logoTextBlue: {
+    color: '#0074D9',
+  },
   logoutButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -214,14 +206,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 5,
   },
-  logoutText: { color: '#fff', marginLeft: 5 },
-  stateContainer: {
-    padding: 10,
-    backgroundColor: '#E0E0E0',
-    alignItems: 'center',
+  logoutText: {
+    color: '#fff',
+    marginLeft: 5,
   },
-  stateText: { fontSize: 16, fontWeight: '600' },
-  map: { flex: 1 },
+  map: {
+    flex: 1,
+  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -229,7 +220,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     position: 'absolute',
-    top: 140,
+    top: 100,
     left: 20,
     right: 20,
     backgroundColor: '#fff',
@@ -247,17 +238,14 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginBottom: 8,
   },
-  suggestionItem: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
   requestButton: {
     backgroundColor: '#0074D9',
     paddingVertical: 10,
     borderRadius: 6,
     alignItems: 'center',
-    marginTop: 10,
   },
-  requestButtonText: { color: '#fff', fontWeight: 'bold' },
+  requestButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
 });

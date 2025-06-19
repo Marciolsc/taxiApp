@@ -41,7 +41,7 @@ Além de focar no usuário final, tivemos o cuidado de criar uma interface clara
 
 # 📰Considerações Finais sobre o trabalho📰
 
-* Relato do Igor:
+# Relato do Igor:
 Durante o desenvolvimento desse projeto eu fiquei responsável por algumas partes importantes do aplicativo. Minha principal tarefa foi fazer a parte da busca no mapa, ou seja, a funcionalidade onde o usuário consegue escolher o local de embarque e o destino direto no mapa interativo.
 
 Além disso, também fui o responsável por criar a tela de solicitação de corrida, onde o passageiro consegue visualizar o endereço escolhido, confirmar a corrida e enviar a solicitação para a cooperativa.
@@ -52,7 +52,7 @@ Foi uma experiência bem interessante, principalmente por ser a primeira vez que
 
 No geral, foi um trabalho desafiador, mas muito gratificante. Consegui aplicar muita coisa que aprendemos nas aulas e também aprender bastante por conta própria.
 
-* Relato do Marcio:
+# Relato do Marcio:
 Durante o desenvolvimento do aplicativo da Ilha Coop, fiquei responsável por algumas partes mais técnicas relacionadas ao funcionamento interno do app.
 
 Uma das minhas principais funções foi o controle do layout das telas, garantindo que os componentes ficassem bem organizados e que a navegação entre elas fosse fluida e intuitiva. Trabalhei bastante com os hooks do React, principalmente o useState e o useEffect, para controlar os estados da aplicação e o comportamento das telas conforme as interações do usuário.

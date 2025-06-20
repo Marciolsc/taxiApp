@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import { supabase } from '../lib/supabase';
 import { router } from 'expo-router'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Login() {
   
@@ -37,92 +38,87 @@ export default function Login() {
   }
   
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <View style={styles.container}>
-        {/* Header */}
-        <View style={styles.header}>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text
-              style={[
-                styles.logoText,
-                {textShadowColor: '#fff',textShadowOffset: { width: 1, height: 1 },textShadowRadius: 2,},]}>Taxi
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.container}>
+          {/* Header */}
+          <View style={styles.header}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
               <Text
                 style={[
                   styles.logoText,
-                  {color: colors.azul_Taxi,textShadowColor: '#fff',textShadowOffset: { width: 1, height: 1 },textShadowRadius: 2,},]}> IlhaCoop
+                  {textShadowColor: '#fff',textShadowOffset: { width: 1, height: 1 },textShadowRadius: 2,},]}>Taxi
+                <Text
+                  style={[
+                    styles.logoText,
+                    {color: colors.azul_Taxi,textShadowColor: '#fff',textShadowOffset: { width: 1, height: 1 },textShadowRadius: 2,},]}> IlhaCoop
+                </Text>
               </Text>
+            </View>
+          </View>
+
+          {/* Formulário */}
+          <View style={styles.form}>
+            <View>
+              <Text style={[styles.label, { fontWeight: 'bold', fontSize: 18, textAlign: 'center' }]}>Email</Text>
+              <TextInput
+                placeholder="Endereço de Email"
+                placeholderTextColor="#A9A9A9"
+                style={styles.input}
+                value={email}
+                onChangeText={setEmail}
+              />
+            </View>
+
+            <View>
+              <Text style={[styles.label, { fontWeight: 'bold', fontSize: 18, textAlign: 'center' }]}>Senha</Text>
+              <TextInput
+                placeholder="Insira sua senha"
+                placeholderTextColor="#A9A9A9"
+                secureTextEntry
+                style={styles.input}
+                value={senha}
+                onChangeText={setSenha}
+
+              />
+            </View>
+
+            <Pressable style={styles.button} onPress={handleSignIn}>
+              <Text style={styles.buttonText}>{loading ? 'Carregando...' : 'Entrar'}</Text>
+            </Pressable>
+
+            <Text style={{ textAlign: 'center', marginTop: 16 }}>
+              Ainda não possui uma conta?{' '}
+              <Link href = '/(auth)/signup/page'>
+                <Text style={{ color: colors.azul_Taxi }}>Cadastre-se</Text>
+              </Link>
+              
             </Text>
           </View>
-        </View>
 
-        {/* Formulário */}
-        <View style={styles.form}>
-          <View>
-            <Text style={[styles.label, { fontWeight: 'bold', fontSize: 18, textAlign: 'center' }]}>Email</Text>
-            <TextInput
-              placeholder="Endereço de Email"
-              placeholderTextColor="#A9A9A9"
-              style={styles.input}
-              value={email}
-              onChangeText={setEmail}
-            />
+          {/* Redes Sociais */}
+          <View style={styles.footer}>
+            <Pressable onPress={() => Linking.openURL('https://www.instagram.com/taxiilha/')}>
+              <FontAwesome name="instagram" size={24} color={colors.zinc} style={styles.icon} />
+            </Pressable>
+            <Pressable onPress={() => Linking.openURL('https://www.facebook.com/ilhacoop/?locale=pt_BR')}>
+              <FontAwesome name="facebook" size={24} color={colors.zinc} style={styles.icon} />
+            </Pressable>
+            <Pressable onPress={() => Linking.openURL('https://classificadosilha.com.br/listing/taxi-ilhacoop/')}>
+              <FontAwesome name="globe" size={24} color={colors.zinc} style={styles.icon} />
+            </Pressable>
           </View>
 
-          <View>
-            <Text style={[styles.label, { fontWeight: 'bold', fontSize: 18, textAlign: 'center' }]}>Senha</Text>
-            <TextInput
-              placeholder="Insira sua senha"
-              placeholderTextColor="#A9A9A9"
-              secureTextEntry
-              style={styles.input}
-              value={senha}
-              onChangeText={setSenha}
-
-            />
+          {/* Informações de Contato */}
+          <View style={styles.contactInfo}>
+            <Text style={styles.contactText}>© 2025 IlhaCoop. Todos os direitos reservados.</Text>
+            <Text style={styles.contactText}>Email: ilhacoop@yahoo.com.br</Text>
+            <Text style={styles.contactText}>Telefone: (21) 2467-2200</Text>
+            <Text style={styles.contactText}>Endereço: Av. Paranapuã, Ilha do Governado, Rio de Janeiro - RJ</Text>
           </View>
-
-          <Pressable style={styles.button} onPress={handleSignIn}>
-            <Text style={styles.buttonText}>{loading ? 'Carregando...' : 'Entrar'}</Text>
-          </Pressable>
-
-          <Text style={{ textAlign: 'center', marginTop: 16 }}>
-            Esqueci minha senha{' '}
-            <Link href = '/(panel)/profile/page'>
-              <Text style={{ color: colors.azul_Taxi }}>Clique aqui</Text>
-            </Link>
-          </Text>
-
-          <Text style={{ textAlign: 'center', marginTop: 16 }}>
-            Ainda não possui uma conta?{' '}
-            <Link href = '/(auth)/signup/page'>
-              <Text style={{ color: colors.azul_Taxi }}>Cadastre-se</Text>
-            </Link>
-            
-          </Text>
         </View>
-
-        {/* Redes Sociais */}
-        <View style={styles.footer}>
-          <Pressable onPress={() => Linking.openURL('https://www.instagram.com/taxiilha/')}>
-            <FontAwesome name="instagram" size={24} color={colors.zinc} style={styles.icon} />
-          </Pressable>
-          <Pressable onPress={() => Linking.openURL('https://www.facebook.com/ilhacoop/?locale=pt_BR')}>
-            <FontAwesome name="facebook" size={24} color={colors.zinc} style={styles.icon} />
-          </Pressable>
-          <Pressable onPress={() => Linking.openURL('https://classificadosilha.com.br/listing/taxi-ilhacoop/')}>
-            <FontAwesome name="globe" size={24} color={colors.zinc} style={styles.icon} />
-          </Pressable>
-        </View>
-
-        {/* Informações de Contato */}
-        <View style={styles.contactInfo}>
-          <Text style={styles.contactText}>© 2025 IlhaCoop. Todos os direitos reservados.</Text>
-          <Text style={styles.contactText}>Email: ilhacoop@yahoo.com.br</Text>
-          <Text style={styles.contactText}>Telefone: (21) 2467-2200</Text>
-          <Text style={styles.contactText}>Endereço: Av. Paranapuã, Ilha do Governado, Rio de Janeiro - RJ</Text>
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
